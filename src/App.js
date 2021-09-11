@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import JumbotronComponent from "./components/JumbotronComponent";
+import MainPage from "./pages/MainPage";
+import AddPage from "./pages/AddPage";
+import EditPage from "./pages/EditPage";
+import DetailPage from "./pages/DetailPage";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <JumbotronComponent />
+        <Switch>
+          <Route path="/" exact>
+            <MainPage />
+          </Route>
+          <Route exact path="/add">
+            <AddPage />
+          </Route>
+          <Route exact path="/detail/:id">
+            <DetailPage />
+          </Route>
+          <Route exact path="/edit/:id">
+            <EditPage />
+          </Route>
+          <Route path="/error-404">
+            <div className="text-center">
+              <p>Data Not Found</p>
+            </div>
+          </Route>
+          <Route path="*">
+            <div className="text-center">
+              <p>Page Not Found</p>
+            </div>
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
